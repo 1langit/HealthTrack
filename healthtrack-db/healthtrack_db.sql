@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2024 at 04:36 PM
+-- Generation Time: May 21, 2024 at 04:49 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `healthtrack_db`
 --
+
+CREATE DATABASE IF NOT EXISTS `healthtrack_db`;
+
+USE `healthtrack_db`;
 
 -- --------------------------------------------------------
 
@@ -117,6 +121,28 @@ ALTER TABLE `riwayat_pemeriksaan`
   ADD PRIMARY KEY (`id_riwayat`),
   ADD KEY `id_pasien` (`id_pasien`),
   ADD KEY `id_dokter` (`id_dokter`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `dokter`
+--
+ALTER TABLE `dokter`
+  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `pasien`
+--
+ALTER TABLE `pasien`
+  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `riwayat_pemeriksaan`
+--
+ALTER TABLE `riwayat_pemeriksaan`
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
