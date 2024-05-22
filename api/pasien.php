@@ -82,18 +82,26 @@
             );
         } else {
             $stmt = $mysqli->prepare("INSERT INTO pasien (nama, tgl_lahir, jenis_kelamin, kontak, alamat) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $nama, $tgl_lahir, $jenis_kelamin, $kontak, $alamat);
 
-            if ($stmt->execute()) {
-                $response = array(
-                    'status' => 201,
-                    'message' => 'Insert pasien berhasil'
-                );
-            } else {
+            if ($stmt === false) {
                 $response = array(
                     'status' => 500,
-                    'message' => 'Insert pasien gagal: ' . $stmt->error
+                    'message' => 'Prepare statement failed: ' . $mysqli->error
                 );
+            } else {
+                $stmt->bind_param("sssss", $nama, $tgl_lahir, $jenis_kelamin, $kontak, $alamat);
+                
+                if ($stmt->execute()) {
+                    $response = array(
+                        'status' => 201,
+                        'message' => 'Insert pasien berhasil'
+                    );
+                } else {
+                    $response = array(
+                        'status' => 500,
+                        'message' => 'Insert pasien gagal: ' . $stmt->error
+                    );
+                }
             }
             $stmt->close();
         }
