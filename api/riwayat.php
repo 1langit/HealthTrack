@@ -106,15 +106,13 @@
     function insert_riwayat() {
         global $mysqli;
 
-        $data = json_decode(file_get_contents('php://input'), true);
-        
-        $id_pasien = $data["id_pasien"];
-        $id_dokter = $data["id_dokter"];
-        $tanggal_pemeriksaan = $data["Tanggal_Pemeriksaan"];
-        $diagnosis = $data["Diagnosis"];
-        $tindakan = $data["Tindakan"];
-        $obat = $data["Obat_yang_Diresepkan"];
-        $catatan = $data["Catatan"];
+        $id_pasien = $_POST["id_pasien"];
+        $id_dokter = $_POST["id_dokter"];
+        $tanggal_pemeriksaan = $_POST["tanggal_pemeriksaan"];
+        $diagnosis = $_POST["diagnosis"];
+        $tindakan = $_POST["tindakan"];
+        $obat = $_POST["obat_yang_diresepkan"];
+        $catatan = $_POST["catatan"];
 
         if (empty($id_pasien) || empty($id_dokter) || empty($tanggal_pemeriksaan) || empty($diagnosis) || empty($tindakan) || empty($obat) || empty($catatan)) {
             $response = array(
