@@ -110,7 +110,7 @@
         echo json_encode($response);
     }
 
-    function update_pasien($id) {
+    function update_pasien($id_pasien) {
         global $mysqli;
 
         $nama = $_POST["nama"];
@@ -118,54 +118,77 @@
         $jenis_kelamin = $_POST["jenis_kelamin"];
         $kontak = $_POST["kontak"];
         $alamat = $_POST["alamat"];
-
-        if (empty($nama) || empty($tgl_lahir) || empty($jenis_kelamin) || empty($kontak) || empty($alamat)) {
+        
+        $result = $mysqli->query("SELECT * FROM pasien WHERE id_pasien='$id_pasien'");
+        if ($result->num_rows === 0) {
             $response = array(
-                'status' => 400,
-                'message' => 'Data tidak lengkap'
+                'status' => 404,
+                'message' => 'ID pasien tidak ditemukan'
             );
         } else {
-            $stmt = $mysqli->prepare("UPDATE pasien SET nama = ?, tgl_lahir = ?, jenis_kelamin = ?, kontak = ?, alamat = ? WHERE id_pasien = ?");
-            $stmt->bind_param("sssssi", $nama, $tgl_lahir, $jenis_kelamin, $kontak, $alamat, $id);
-
-            if ($stmt->execute()) {
+            if (empty($nama) || empty($tgl_lahir) || empty($jenis_kelamin) || empty($kontak) || empty($alamat)) {
                 $response = array(
-                    'status' => 200,
-                    'message' => 'Update pasien berhasil'
+                    'status' => 400,
+                    'message' => 'Data tidak lengkap'
                 );
             } else {
-                $response = array(
-                    'status' => 500,
-                    'message' => 'Update pasien gagal: ' . $stmt->error
-                );
+                $stmt = $mysqli->prepare("UPDATE pasien SET nama = ?, tgl_lahir = ?, jenis_kelamin = ?, kontak = ?, alamat = ? WHERE id_pasien = ?");
+                $stmt->bind_param("sssssi", $nama, $tgl_lahir, $jenis_kelamin, $kontak, $alamat, $id_pasien);
+
+                if ($stmt->execute()) {
+                    $response = array(
+                        'status' => 200,
+                        'message' => 'Update pasien berhasil'
+                    );
+                } else {
+                    $response = array(
+                        'status' => 500,
+                        'message' => 'Update pasien gagal: ' . $stmt->error
+                    );
+                }
+                $stmt->close();
             }
-            $stmt->close();
         }
 
         header('Content-Type: application/json');
         echo json_encode($response);
     }
 
-    function delete_pasien($id) {
+    function delete_pasien($id_pasien) {
         global $mysqli;
-
-        $stmt = $mysqli->prepare("DELETE FROM pasien WHERE id_pasien = ?");
-        $stmt->bind_param("i", $id);
-
-        if ($stmt->execute()) {
+    
+        $result = $mysqli->query("SELECT * FROM pasien WHERE id_pasien='$id_pasien'");
+        if ($result->num_rows === 0) {
             $response = array(
-                'status' => 200,
-                'message' => 'Delete pasien berhasil'
+                'status' => 404,
+                'message' => 'ID pasien tidak ditemukan'
             );
         } else {
-            $response = array(
-                'status' => 500,
-                'message' => 'Delete pasien gagal: ' . $stmt->error
-            );
+            $stmt = $mysqli->prepare("DELETE FROM pasien WHERE id_pasien = ?");
+            if ($stmt === false) {
+                $response = array(
+                    'status' => 500,
+                    'message' => 'Prepare statement failed: ' . $mysqli->error
+                );
+            } else {
+                $stmt->bind_param("i", $id_pasien);
+    
+                if ($stmt->execute()) {
+                    $response = array(
+                        'status' => 200,
+                        'message' => 'Delete pasien berhasil'
+                    );
+                } else {
+                    $response = array(
+                        'status' => 500,
+                        'message' => 'Delete pasien gagal: ' . $stmt->error
+                    );
+                }
+    
+                $stmt->close();
+            }
         }
-
-        $stmt->close();
-        
+    
         header('Content-Type: application/json');
         echo json_encode($response);
     }

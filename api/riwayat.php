@@ -152,7 +152,7 @@
 
     function update_riwayat($id_riwayat) {
         global $mysqli;
-
+    
         $id_pasien = $_POST["id_pasien"];
         $id_dokter = $_POST["id_dokter"];
         $tanggal_pemeriksaan = $_POST["tanggal_pemeriksaan"];
@@ -160,68 +160,83 @@
         $tindakan = $_POST["tindakan"];
         $obat = $_POST["obat_yang_diresepkan"];
         $catatan = $_POST["catatan"];
-        
+    
         if (empty($id_pasien) || empty($id_dokter) || empty($tanggal_pemeriksaan) || empty($diagnosis) || empty($tindakan) || empty($obat) || empty($catatan)) {
             $response = array(
                 'status' => 400,
                 'message' => 'Data tidak lengkap'
             );
         } else {
-            $updateQuery = "UPDATE riwayat_pemeriksaan SET id_pasien=?, id_dokter=?, Tanggal_Pemeriksaan=?, Diagnosis=?, Tindakan=?, Obat_yang_Diresepkan=?, Catatan=? WHERE id_riwayat=?";
-            $stmt = $mysqli->prepare($updateQuery);
-    
-            $stmt->bind_param("iisssssi", $id_pasien, $id_dokter, $tanggal_pemeriksaan, $diagnosis, $tindakan, $obat, $catatan, $id_riwayat);
-            $result = $stmt->execute();
-    
-            if ($result) {
+            $result = $mysqli->query("SELECT * FROM riwayat_pemeriksaan WHERE id_riwayat='$id_riwayat'");
+            if ($result->num_rows === 0) {
                 $response = array(
-                    'status' => 200,
-                    'message' => 'Update riwayat berhasil'
+                    'status' => 404,
+                    'message' => 'ID riwayat tidak ditemukan'
                 );
             } else {
-                $response = array(
-                    'status' => 500,
-                    'message' => 'Update riwayat gagal'
-                );
-            }
+                $updateQuery = "UPDATE riwayat_pemeriksaan SET id_pasien=?, id_dokter=?, Tanggal_Pemeriksaan=?, Diagnosis=?, Tindakan=?, Obat_yang_Diresepkan=?, Catatan=? WHERE id_riwayat=?";
+                $stmt = $mysqli->prepare($updateQuery);
     
-            $stmt->close();
-        }
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    }    
-
-
-    function delete_riwayat($id) {
-        global $mysqli;
-
-        $stmt = $mysqli->prepare("DELETE FROM riwayat_pemeriksaan WHERE id_riwayat = ?");
-        
-        if ($stmt === false) {
-            $response = array(
-                'status' => 500,
-                'message' => 'Prepare statement failed: ' . $mysqli->error
-            );
-        } else {
-            $stmt->bind_param("i", $id);
-
-            if ($stmt->execute()) {
-                $response = array(
-                    'status' => 200,
-                    'message' => 'Delete riwayat berhasil'
-                );
-            } else {
-                $response = array(
-                    'status' => 500,
-                    'message' => 'Delete riwayat gagal: ' . $stmt->error
-                );
+                $stmt->bind_param("iisssssi", $id_pasien, $id_dokter, $tanggal_pemeriksaan, $diagnosis, $tindakan, $obat, $catatan, $id_riwayat);
+                $result = $stmt->execute();
+    
+                if ($result) {
+                    $response = array(
+                        'status' => 200,
+                        'message' => 'Update riwayat berhasil'
+                    );
+                } else {
+                    $response = array(
+                        'status' => 500,
+                        'message' => 'Update riwayat gagal'
+                    );
+                }
+    
+                $stmt->close();
             }
-
-            $stmt->close();
         }
-
+    
         header('Content-Type: application/json');
         echo json_encode($response);
     }
 
+    function delete_riwayat($id_riwayat) {
+        global $mysqli;
+    
+        $result = $mysqli->query("SELECT * FROM riwayat_pemeriksaan WHERE id_riwayat='$id_riwayat'");
+        if ($result->num_rows === 0) {
+            $response = array(
+                'status' => 404,
+                'message' => 'ID riwayat tidak ditemukan'
+            );
+        } else {
+            $stmt = $mysqli->prepare("DELETE FROM riwayat_pemeriksaan WHERE id_riwayat = ?");
+            if ($stmt === false) {
+                $response = array(
+                    'status' => 500,
+                    'message' => 'Prepare statement failed: ' . $mysqli->error
+                );
+            } else {
+                $stmt->bind_param("i", $id_riwayat);
+    
+                if ($stmt->execute()) {
+                    $response = array(
+                        'status' => 200,
+                        'message' => 'Delete riwayat berhasil'
+                    );
+                } else {
+                    $response = array(
+                        'status' => 500,
+                        'message' => 'Delete riwayat gagal: ' . $stmt->error
+                    );
+                }
+    
+                $stmt->close();
+            }
+        }
+    
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+    
 ?>
