@@ -42,10 +42,31 @@
                 </tr>
               </thead>
               <tbody>
+                <?php
+                    $curl= curl_init();
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($curl, CURLOPT_URL, "http://localhost/Healthtrack/api/pasien.php");
+                    $json = json_decode(curl_exec($curl), true);
+
+                    for ($i = 0; $i < count($json["data"]); $i++) {
+                        echo "<tr>";
+                            echo "<td scope='row'>1</td>";
+                            echo "<td>";
+                                echo "<img src='assets/".($json['data'][$i]['jenis_kelamin'] == 'Laki-laki' ? 'male' : 'female').".png' class='me-3' alt='profil'>";
+                                echo "<a href='detail_pasien.php' class='body-semibold'>{$json['data'][$i]['nama']}</a>";
+                            echo "</td>";
+                            echo "<td>{$json['data'][$i]['jenis_kelamin']}</td>";
+                            echo "<td>{$json['data'][$i]['tgl_lahir']}</td>";
+                            echo "<td>{$json['data'][$i]['kontak']}</td>";
+                            echo "<td class='text-truncate'>{$json['data'][$i]['alamat']}</td>";
+                        echo "</tr>";
+                    }
+                ?>
+                <!-- 
                 <tr>
                     <td scope="row">1</td>
                     <td>
-                        <!-- Pake percabangan, if gender = laki-laki -> img = male.png. Else -> female.png -->
+                        <!-- Pake percabangan, if gender = laki-laki -> img = male.png. Else -> female.png
                         <img src="assets/male.png" class="me-3" alt="profil">
                         <a href="detail_pasien.php" class="body-semibold">Andi Wijaya</a>
                     </td>
@@ -54,30 +75,7 @@
                     <td>082316237123</td>
                     <td class="text-truncate">Jl. Kebon Jeruk No. 15, Jakarta</td>
                 </tr>
-                <tr>
-                    <td scope="row">2</td>
-                    <td>
-                        <!-- Pake percabangan, if gender = laki-laki -> img = male.png. Else -> female.png -->
-                        <img src="assets/female.png" class="me-3" alt="profil">
-                        <a href="detail_pasien.php" class="body-semibold">Efni Ana</a>
-                    </td>
-                    <td>Perempuan</td>
-                    <td>1991-01-01</td>
-                    <td>082316237123</td>
-                    <td class="text-truncate">Jl. Kebon Jeruk No. 15, Jakarta</td>
-                </tr>
-                <tr>
-                    <td scope="row">3</td>
-                    <td>
-                        <!-- Pake percabangan, if gender = laki-laki -> img = male.png. Else -> female.png -->
-                        <img src="assets/male.png" class="me-3" alt="profil">
-                        <a href="detail_pasien.php" class="body-semibold">Andi Wijaya</a>
-                    </td>
-                    <td>Laki-laki</td>
-                    <td>1991-01-01</td>
-                    <td>082316237123</td>
-                    <td class="text-truncate">Jl. Kebon Jeruk No. 15, Jakarta</td>
-                </tr>
+                -->
               </tbody>
         </table>
     </div>
