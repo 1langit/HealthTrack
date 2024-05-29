@@ -10,6 +10,14 @@
     <title>Detail Pasien - Health Track</title>
 </head>
 <body>
+    <?php
+        include "config.php";
+        $id = $_GET['id'];
+        $curl= curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_URL, $base_url.'/pasien.php?id='.$id);
+        $json = json_decode(curl_exec($curl), true);
+    ?>
     <div class="navbar">
         <img src="assets/logo.svg" alt="logo image">
         <div class="d-flex column gap-3 align-items-center hover-container">
@@ -39,10 +47,10 @@
             <div class="d-flex justify-content-between mt-3">
                 <div>
                     <div style="display: flex; align-items: center; gap: 23px;">
-                        <img src="assets/male.png" width="64px" height="64px">
+                        <img src="assets/<?php echo($json['data'][0]['jenis_kelamin'] == 'Laki-laki' ? 'male' : 'female') ?>.png" width="64px" height="64px">
                         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
                             <div style="display: flex; align-items: center; gap: 48px;">
-                                <span class="detail-nama-pasien">Andi Wijaya</span>
+                                <span class="detail-nama-pasien"><?php echo($json["data"][0]["nama"]); ?></span>
                                 <div style="display: flex; align-items: center; gap: 8px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M6 19C6 19.5304 6.21071 20.0391 6.58579 20.4142C6.96086 20.7893 7.46957 21 8 21H16C16.5304 21 17.0391 20.7893 17.4142 20.4142C17.7893 20.0391 18 19.5304 18 19V7H6V19ZM8 9H16V19H8V9ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z" fill="#FF0000"/>
@@ -54,11 +62,11 @@
                             </div>
                             <div style="display: flex; align-items: flex-start; gap: 32px;">
                                 <span class="detail-data-pasien">
-                                    Laki-laki
+                                    <?php echo($json["data"][0]["jenis_kelamin"]); ?>
                                 </span>
-                                <span class="detail-data-pasien">
+                                <!-- <span class="detail-data-pasien">
                                     32 tahun
-                                </span>
+                                </span> -->
                             </div>
                         </div>
                     </div>
@@ -80,27 +88,26 @@
                     </div>
                     <div class="d-flex flex-column gap-3 w-100">
                         <span class="body-reguler">Nama</span>
-                        <input type="text" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir">
+                        <input type="text" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir" value="<?php echo($json["data"][0]["nama"]); ?>">
                     </div>
                     <div class="d-flex flex-column gap-3 w-100">
                         <span class="body-reguler">Gender</span>
                         <select class="custom-dropdown form-control">
-                            <option value="" disabled selected></option>
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
+                            <option value="Laki-laki" <?php echo($json['data'][0]['jenis_kelamin'] == 'Laki-laki' ? 'selected' : ''); ?> >Laki-laki</option>
+                            <option value="Perempuan" <?php echo($json['data'][0]['jenis_kelamin'] == 'Perempuan' ? 'selected' : ''); ?> >Perempuan</option>
                         </select>
                     </div>
                     <div class="d-flex flex-column gap-3 w-100">
                         <span class="body-reguler">Tanggal Lahir</span>
-                        <input type="text" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir">
+                        <input type="text" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir" value="<?php echo($json["data"][0]["tgl_lahir"]); ?>">
                     </div>
                     <div class="d-flex flex-column gap-3 w-100">
                         <span class="body-reguler">No. Telp</span>
-                        <input type="text" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir">
+                        <input type="text" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir" value="<?php echo($json["data"][0]["kontak"]); ?>">
                     </div>
                     <div class="d-flex flex-column gap-3 w-100">
                         <span class="body-reguler">Alamat</span>
-                        <input type="text" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir">
+                        <input type="text" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir" value="<?php echo($json["data"][0]["alamat"]); ?>">
                     </div>
                     <div class="d-flex align-items-center w-100">
                         <input type="submit" class="button-primary w-100" value="Simpan">
@@ -127,16 +134,23 @@
                                 <tr>
                                 </tr>
                             <tbody>
-
+                                <?php
+                                    $curl= curl_init();
+                                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                                    curl_setopt($curl, CURLOPT_URL, $base_url.'/riwayat.php?id_pasien='.$id);
+                                    $json = json_decode(curl_exec($curl), true);
+                                    
+                                    for ($i = 0; $i < count($json["data"]); $i++) {
+                                        echo "<td>{$json['data'][$i]['Tanggal_Pemeriksaan']}</td>";
+                                        echo "<td>{$json['data'][$i]['Diagnosis']}</td>";
+                                        echo "<td>{$json['data'][$i]['id_pasien']}</td>";
+                                    }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        
     </div>
-
-
-
 </body>
 </html>
