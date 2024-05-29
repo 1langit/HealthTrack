@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="navbar">
-        <img src="assets/logo.svg" alt="logo image">
+        <a href="index.php"><img src="assets/logo.svg" alt="logo image"></a>
         <div class="d-flex column gap-3 align-items-center hover-container">
             <img src="assets/profil_doctor.svg" width="40px" height="40px" alt="doctor">
             <div class="d-inline-flex flex-column gap-1">
@@ -50,10 +50,10 @@
 
                     for ($i = 0; $i < count($json["data"]); $i++) {
                         echo "<tr>";
-                            echo "<td scope='row'>1</td>";
+                            echo "<td scope='row'>{$json['data'][$i]['id_pasien']}</td>";
                             echo "<td>";
                                 echo "<img src='assets/".($json['data'][$i]['jenis_kelamin'] == 'Laki-laki' ? 'male' : 'female').".png' class='me-3' alt='profil'>";
-                                echo "<a href='detail_pasien.php' class='body-semibold'>{$json['data'][$i]['nama']}</a>";
+                                echo "<a href='detail-pasien.html' class='body-semibold'>{$json['data'][$i]['nama']}</a>";
                             echo "</td>";
                             echo "<td>{$json['data'][$i]['jenis_kelamin']}</td>";
                             echo "<td>{$json['data'][$i]['tgl_lahir']}</td>";

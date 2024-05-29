@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/svg" href="assets/icon.svg">
-    <title>Tambah Pasien - Health Track</title>
+    <title>Detail Riwayat - Health Track</title>
 </head>
 <body>
     <div class="navbar">
@@ -29,11 +29,16 @@
             <div class="navigasi mt-4 d-inline-flex gap-3 p-0">
                 <a href="index.php">Dashboard</a>
                 <a href="#">/</a>
-                <a href="tambah-pasien.html">Tambah Pasien</a>
+                <a href="detail-pasien.html">Detail Pasien</a>
+                <a href="#">/</a>
+                <a href="detail-riwayat.html">Tambah Riwayat</a>
             </div>
-            <div class="d-inline-flex gap-3 align-items-center p-0">
-                <img src="assets/ic_person.png" alt="ic">
-                <h2>Tambah Pasien</h2>
+            <div class="d-inline-flex gap-3 mt-2 mb-2 align-items-center p-0">
+                <img src="assets/ic_medical.svg" width="56px" alt="ic">
+                <div class="d-inline-flex flex-column">
+                    <h2>Tambah Riwayat Pemeriksaan</h2>
+                    <span class="body gray">Andi Wijaya</span>
+                </div>
             </div>
 
             <!-- form -->
@@ -41,17 +46,31 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
-                            <span class="body-reguler">Nama</span>
-                            <input type="text" class="data-input form-control" name="nama" id="nama">
+                            <span class="body-reguler">Tanggal Pemeriksaan*</span>
+                            <input type="date" class="data-input form-control" name="tanggal_pemeriksaan" id="tanggal_pemeriksaan">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
-                            <span class="body-reguler">Gender</span>
+                            <span class="body-reguler">Diagnosa*</span>
                             <select class="custom-dropdown form-control">
                                 <option value="" disabled selected></option>
-                                <option value="Laki-laki">Laki-laki</option>
-                                <option value="Perempuan">Perempuan</option>
+                                <option value="Anemia">Anemia</option>
+                                <option value="Hipertensi">Hipertensi</option>
+                                <option value="Diabetes">Diabetes</option>
+                                <option value="Migrain">Migrain</option>
+                                <option value="Gangguan Saluran Pernapasan">Gangguan Saluran Pernapasan</option>
+                                <option value="Asma">Asma</option>
+                                <option value="Pneumonia">Pneumonia</option>
+                                <option value="Jantung Koroner">Jantung Koroner</option>
+                                <option value="Stroke">Stroke</option>
+                                <option value="Kanker">Kanker</option>
+                                <option value="COVID-19">COVID-19</option>
+                                <option value="Infeksi Saluran Kemih">Infeksi Saluran Kemih</option>
+                                <option value="Gagal Ginjal">Gagal Ginjal</option>
+                                <option value="Gastroenteritis">Gastroenteritis</option>
+                                <option value="TBC">TBC</option>
+                                <option value="HIV/AIDS">HIV/AIDS</option>
                             </select>
                         </div>
                     </div>
@@ -59,33 +78,30 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
-                            <span class="body-reguler">Tanggal Lahir</span>
-                            <input type="date" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir">
+                            <span class="body-reguler">Tindakan*</span>
+                            <input type="text" class="data-input form-control" name="tindakan" id="tindakan">
                         </div>
                     </div>
                     <div class="col-lg-6 mt-3 mt-lg-0">
                         <div class="d-flex flex-column gap-3">
-                            <span class="body-reguler">No. Telpon</span>
-                            <input type="text" class="data-input form-control" name="no_telepon" id="no_telepon">
+                            <span class="body-reguler">Obat Yang Diresepkan*</span>
+                            <input type="text" class="data-input form-control" name="obat" id="obat">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="d-flex flex-column gap-3">
-                        <span class="body-reguler">Alamat</span>
-                        <input type="text" class="data-input form-control" name="alamat" id="alamat">
+                        <span class="body-reguler">Catatan</span>
+                        <input type="text" class="data-input form-control" name="catatan" id="catatan">
                     </div>
                 </div>
                 <div class="d-inline-flex justify-content-end gap-3">
-                    <a href="index.php" class="button-secondary w-auto">Batal</a>
+                    <a href="detail-pasien.html" class="button-secondary w-auto">Batal</a>
                     <input type="submit" class="button-primary w-auto" value="Tambah">
                 </div>
             </form>
         </div>
         
-    </div>
-
-
-
+    </div>  
 </body>
 </html>

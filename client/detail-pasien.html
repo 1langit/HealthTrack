@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="navbar">
-        <img src="assets/logo.svg" alt="logo image">
+        <a href="index.php"><img src="assets/logo.svg" alt="logo image"></a>
         <div class="d-flex column gap-3 align-items-center hover-container">
             <img src="assets/profil_doctor.svg" width="40px" height="40px" alt="doctor">
             <div class="d-inline-flex flex-column gap-1">
@@ -25,15 +25,11 @@
     </div>
 
     <div class="container">
-        <div class="d-flex row gap-3">
+        <div class="d-flex row">
             <div class="navigasi mt-4 d-inline-flex gap-3 p-0">
                 <a href="index.php">Dashboard</a>
                 <a href="#">/</a>
                 <a href="detail-pasien.html">Detail Pasien</a>
-            </div>
-            <div class="d-inline-flex gap-3 align-items-center p-0">
-                <img src="assets/ic_person.png" alt="ic">
-                <h2>Detail Pasien</h2>
             </div>
 
             <div class="d-flex justify-content-between mt-3">
@@ -42,14 +38,14 @@
                         <img src="assets/male.png" width="64px" height="64px">
                         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
                             <div style="display: flex; align-items: center; gap: 48px;">
-                                <span class="detail-nama-pasien">Andi Wijaya</span>
+                                <h1>Andi Wijaya</h1>
                                 <div style="display: flex; align-items: center; gap: 8px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M6 19C6 19.5304 6.21071 20.0391 6.58579 20.4142C6.96086 20.7893 7.46957 21 8 21H16C16.5304 21 17.0391 20.7893 17.4142 20.4142C17.7893 20.0391 18 19.5304 18 19V7H6V19ZM8 9H16V19H8V9ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z" fill="#FF0000"/>
                                     </svg>
-                                    <span class="hapus-pasien">
+                                    <a href="" class="body-semibold" style="color: red; text-decoration: none;">
                                         Hapus Pasien
-                                    </span>
+                                    </a>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: flex-start; gap: 32px;">
@@ -57,26 +53,22 @@
                                     Laki-laki
                                 </span>
                                 <span class="detail-data-pasien">
-                                    32 tahun
+                                    1990-01-01
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a href="tambah-pasien.html" class="button-primary">Tambah Pasien</a>
+                    <a href="tambah-riwayat.html" class="button-primary">Tambah Riwayat</a>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-5" style="display: flex; padding: 24px; flex-direction: column; align-items: flex-start; gap: 24px;">
+            <div class="row mt-4 p-0">
+                <div class="col-sm-5 container-form" style="display: flex; padding: 24px; flex-direction: column; align-items: flex-start; gap: 24px;">
                     <div style="display: flex; align-items: center; gap: 16px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M15.6667 16C17.5083 16 19 14.5083 19 12.6667C19 10.825 17.5083 9.33334 15.6667 9.33334C13.825 9.33334 12.3333 10.825 12.3333 12.6667C12.3333 14.5083 13.825 16 15.6667 16ZM15.6667 17.6667C13.4417 17.6667 9 18.7833 9 21V21.8333C9 22.2917 9.375 22.6667 9.83333 22.6667H21.5C21.9583 22.6667 22.3333 22.2917 22.3333 21.8333V21C22.3333 18.7833 17.8917 17.6667 15.6667 17.6667Z" fill="#1405FE"/>
-                        </svg>
-                        <span class="detail-data-pasien-teks">
-                            Data Pasien
-                        </span>
+                        <img src="assets/ic_person.png" alt="">
+                        <h2>Data Pasien</h2>
                     </div>
                     <div class="d-flex flex-column gap-3 w-100">
                         <span class="body-reguler">Nama</span>
@@ -106,30 +98,32 @@
                         <input type="submit" class="button-primary w-100" value="Simpan">
                     </div>
                 </div>
-                <div class="col-sm-7" style="display: flex; padding: 24px; flex-direction: column; align-items: flex-start; gap: 24px;">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M15.6667 16C17.5083 16 19 14.5083 19 12.6667C19 10.825 17.5083 9.33334 15.6667 9.33334C13.825 9.33334 12.3333 10.825 12.3333 12.6667C12.3333 14.5083 13.825 16 15.6667 16ZM15.6667 17.6667C13.4417 17.6667 9 18.7833 9 21V21.8333C9 22.2917 9.375 22.6667 9.83333 22.6667H21.5C21.9583 22.6667 22.3333 22.2917 22.3333 21.8333V21C22.3333 18.7833 17.8917 17.6667 15.6667 17.6667Z" fill="#1405FE"/>
-                        </svg>
-                        <span class="detail-data-pasien-teks">
-                            Riwayat Pemeriksaan
-                        </span>
-                    </div>
-                    <div class="w-100">
-                        <table class="table table-hover mt-4">
-                            <thead>
-                                <tr>
-                                    <th>Tanggal Periksa</th>
-                                    <th>Diagnosa</th>
-                                    <th>Dokter Pemeriksa</th>
-                                </tr>
-                            </thead>
-                                <tr>
-                                </tr>
-                            <tbody>
-
-                            </tbody>
-                        </table>
+                <div class="col-sm-7 p-0">
+                    <div class="ms-3 container-form" style="display: flex; padding: 24px; flex-direction: column; align-items: flex-start; gap: 24px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <img src="assets/ic_medical.svg" width="32px" alt="riwayat">
+                            <h2 class="detail-data-pasien-teks">
+                                Riwayat Pemeriksaan
+                            </h2>
+                        </div>
+                        <div class="w-100">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal Periksa</th>
+                                        <th>Diagnosa</th>
+                                        <th>Dokter Pemeriksa</th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                    </tr>
+                                <tbody>
+                                    <td><a href="detail-riwayat.html" class="body-semibold">21 September 2023</a></td>
+                                    <td>Masuk Angin</td>
+                                    <td>Dr. Sajahbandi</td>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
