@@ -192,3 +192,46 @@ td a {
     background: #FFF;
     padding: 24px;
 }
+
+.hapus-pasien{
+    color: #F00;
+    text-align: center;
+    font-family: "Plus Jakarta Sans";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.detail-nama-pasien{
+    color: #000;
+    text-align: center;
+
+    /* h1 */
+    font-family: "Plus Jakarta Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.detail-data-pasien{
+    color: #000;
+    text-align: center;
+    font-family: "Plus Jakarta Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.detail-data-pasien-teks{
+    color: var(--Black, #000);
+
+    /* h2 */
+    font-family: "Plus Jakarta Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
