@@ -29,7 +29,7 @@
             <div class="navigasi mt-4 d-inline-flex gap-3 p-0">
                 <a href="index.php">Dashboard</a>
                 <a href="#">/</a>
-                <a href="tambah-pasien.html">Tambah Pasien</a>
+                <a href="tambah-pasien.php">Tambah Pasien</a>
             </div>
             <div class="d-inline-flex gap-3 align-items-center p-0">
                 <img src="assets/ic_person.png" alt="ic">

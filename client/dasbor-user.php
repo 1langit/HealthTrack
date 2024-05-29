@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="dasbor-user.html"><img src="assets/logo.svg" alt="logo image"></a>
+        <a href="dasbor-user.php"><img src="assets/logo.svg" alt="logo image"></a>
         <a href="" class="d-flex column gap-2 align-items-center hover-container text-decoration-none">
             <img src="assets/logout.svg" width="18px" alt="Logout">
             <span class="body" style="color: red;">Logout</span>
@@ -67,7 +67,7 @@
                                 <tr>
                                 </tr>
                             <tbody>
-                                <td><a href="detail-riwayat-user.html" class="body-semibold">21 September 2023</a></td>
+                                <td><a href="detail-riwayat-user.php" class="body-semibold">21 September 2023</a></td>
                                 <td>Masuk Angin</td>
                                 <td>Dr. Sajahbandi</td>
                             </tbody>

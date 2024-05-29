@@ -29,7 +29,7 @@
             <div class="navigasi mt-4 d-inline-flex gap-3 p-0">
                 <a href="index.php">Dashboard</a>
                 <a href="#">/</a>
-                <a href="detail-pasien.html">Detail Pasien</a>
+                <a href="detail-pasien.php">Detail Pasien</a>
             </div>
 
             <div class="d-flex justify-content-between mt-3">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a href="tambah-riwayat.html" class="button-primary">Tambah Riwayat</a>
+                    <a href="tambah-riwayat.php" class="button-primary">Tambah Riwayat</a>
                 </div>
             </div>
 
@@ -118,7 +118,7 @@
                                     <tr>
                                     </tr>
                                 <tbody>
-                                    <td><a href="detail-riwayat.html" class="body-semibold">21 September 2023</a></td>
+                                    <td><a href="detail-riwayat.php" class="body-semibold">21 September 2023</a></td>
                                     <td>Masuk Angin</td>
                                     <td>Dr. Sajahbandi</td>
                                 </tbody>

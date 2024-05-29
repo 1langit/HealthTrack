@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="dasbor-user.html"><img src="assets/logo.svg" alt="logo image"></a>
+        <a href="dasbor-user.php"><img src="assets/logo.svg" alt="logo image"></a>
         <a href="" class="d-flex column gap-2 align-items-center hover-container text-decoration-none">
             <img src="assets/logout.svg" width="18px" alt="Logout">
             <span class="body" style="color: red;">Logout</span>
@@ -21,9 +21,9 @@
     <div class="container col-12">
         <div class="d-flex row gap-3 p-3">
             <div class="navigasi mt-4 d-inline-flex gap-3 p-0">
-                <a href="dasbor-user.html">Dashboard</a>
+                <a href="dasbor-user.php">Dashboard</a>
                 <a href="#">/</a>
-                <a href="detail-riwayat-user.html">Detail Riwayat</a>
+                <a href="detail-riwayat-user.php">Detail Riwayat</a>
             </div>
             <div class="d-inline-flex gap-3 mt-2 mb-2 align-items-center p-0">
                 <img src="assets/ic_medical.svg" height="56px" width="56px" alt="ic">

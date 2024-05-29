@@ -28,7 +28,7 @@
         <div class="d-flex justify-content-between align-items-center w-100">
             <h1>Daftar Pasien</h1>
             <input type="text" class="search-input" placeholder="Cari">
-            <a href="tambah-pasien.html" class="button-primary">Tambah Pasien</a>
+            <a href="tambah-pasien.php" class="button-primary">Tambah Pasien</a>
         </div>
         <table class="table table-hover mt-4">
             <thead>
@@ -54,7 +54,7 @@
                             echo "<td scope='row'>{$json['data'][$i]['id_pasien']}</td>";
                             echo "<td>";
                                 echo "<img src='assets/".($json['data'][$i]['jenis_kelamin'] == 'Laki-laki' ? 'male' : 'female').".png' class='me-3' alt='profil'>";
-                                echo "<a href='detail_pasien.php' class='body-semibold'>{$json['data'][$i]['nama']}</a>";
+                                echo "<a href='detail-pasien.php' class='body-semibold'>{$json['data'][$i]['nama']}</a>";
                             echo "</td>";
                             echo "<td>{$json['data'][$i]['jenis_kelamin']}</td>";
                             echo "<td>{$json['data'][$i]['tgl_lahir']}</td>";
