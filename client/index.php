@@ -54,7 +54,7 @@
                             echo "<td scope='row'>{$json['data'][$i]['id_pasien']}</td>";
                             echo "<td>";
                                 echo "<img src='assets/".($json['data'][$i]['jenis_kelamin'] == 'Laki-laki' ? 'male' : 'female').".png' class='me-3' alt='profil'>";
-                                echo "<a href='detail-pasien.php' class='body-semibold'>{$json['data'][$i]['nama']}</a>";
+                                echo "<a href='detail-pasien.php?id=".$json['data'][$i]['id_pasien']."' class='body-semibold'>{$json['data'][$i]['nama']}</a>";
                             echo "</td>";
                             echo "<td>{$json['data'][$i]['jenis_kelamin']}</td>";
                             echo "<td>{$json['data'][$i]['tgl_lahir']}</td>";
