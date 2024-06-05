@@ -73,7 +73,7 @@
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">Diagnosa*</span>
                             <select class="custom-dropdown form-control">
-                                <option value="<?php echo($json["data"][0]["Diagnosis"]); ?>" disabled selected></option>
+                                <option value="" disabled selected><?php echo($json["data"][0]["Diagnosis"]); ?></option>
                                 <option value="Anemia">Anemia</option>
                                 <option value="Hipertensi">Hipertensi</option>
                                 <option value="Diabetes">Diabetes</option>
