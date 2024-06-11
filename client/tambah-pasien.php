@@ -29,7 +29,7 @@
             <div class="navigasi mt-4 d-inline-flex gap-3 p-0">
                 <a href="index.php">Dashboard</a>
                 <a href="#">/</a>
-                <a href="tambah-pasien.php">Tambah Pasien</a>
+                <a href="#">Tambah Pasien</a>
             </div>
             <div class="d-inline-flex gap-3 align-items-center p-0">
                 <img src="assets/ic_person.png" alt="ic">
@@ -37,18 +37,18 @@
             </div>
 
             <!-- form -->
-            <form class="container-form d-flex row gap-3" action="post">
+            <form class="container-form d-flex row gap-3" action="do/insert-pasien-do.php" method="POST">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">Nama</span>
-                            <input type="text" class="data-input form-control" name="nama" id="nama">
+                            <input type="text" class="data-input form-control" name="nama" id="nama" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">Gender</span>
-                            <select class="custom-dropdown form-control">
+                            <select class="custom-dropdown form-control" name="jenis_kelamin" id="jenis_kelamin" required>
                                 <option value="" disabled selected></option>
                                 <option value="Laki-laki">Laki-laki</option>
                                 <option value="Perempuan">Perempuan</option>
@@ -60,32 +60,28 @@
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">Tanggal Lahir</span>
-                            <input type="date" class="data-input form-control" name="tanggal_lahir" id="tanggal_lahir">
+                            <input type="date" class="data-input form-control" name="tgl_lahir" id="tgl_lahir" required>
                         </div>
                     </div>
                     <div class="col-lg-6 mt-3 mt-lg-0">
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">No. Telpon</span>
-                            <input type="text" class="data-input form-control" name="no_telepon" id="no_telepon">
+                            <input type="text" class="data-input form-control" name="kontak" id="kontak" required>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="d-flex flex-column gap-3">
                         <span class="body-reguler">Alamat</span>
-                        <input type="text" class="data-input form-control" name="alamat" id="alamat">
+                        <input type="text" class="data-input form-control" name="alamat" id="alamat" required>
                     </div>
                 </div>
                 <div class="d-inline-flex justify-content-end gap-3">
                     <a href="index.php" class="button-secondary w-auto">Batal</a>
-                    <input type="submit" class="button-primary w-auto" value="Tambah">
+                    <input type="submit" name="submit" class="button-primary w-auto" value="Tambah">
                 </div>
             </form>
         </div>
-        
     </div>
-
-
-
 </body>
 </html>

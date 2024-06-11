@@ -18,7 +18,7 @@
             } else {
                 insert_riwayat();
             }
-                break;
+            break;
         case 'DELETE':
             delete_riwayat($_GET["id"]);
             break;
@@ -105,31 +105,33 @@
 
     function insert_riwayat() {
         global $mysqli;
-
-        $id_pasien = $_POST["id_pasien"];
-        $id_dokter = $_POST["id_dokter"];
-        $tanggal_pemeriksaan = $_POST["tanggal_pemeriksaan"];
-        $diagnosis = $_POST["diagnosis"];
-        $tindakan = $_POST["tindakan"];
-        $obat = $_POST["obat_yang_diresepkan"];
-        $catatan = $_POST["catatan"];
-
-        if (empty($id_pasien) || empty($id_dokter) || empty($tanggal_pemeriksaan) || empty($diagnosis) || empty($tindakan) || empty($obat) || empty($catatan)) {
+    
+        if (!empty($_POST)) {
+            $data = $_POST;
+        } else {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
+    
+        $required_fields = ['id_pasien', 'id_dokter', 'tanggal_pemeriksaan', 'diagnosis', 'tindakan', 'obat_yang_diresepkan', 'catatan'];
+    
+        $missing_fields = array_diff_key(array_flip($required_fields), $data);
+    
+        if (count($missing_fields) > 0) {
             $response = array(
                 'status' => 400,
                 'message' => 'Data tidak lengkap'
             );
         } else {
             $stmt = $mysqli->prepare("INSERT INTO riwayat_pemeriksaan (id_pasien, id_dokter, Tanggal_Pemeriksaan, Diagnosis, Tindakan, Obat_yang_Diresepkan, Catatan) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            
+    
             if ($stmt === false) {
                 $response = array(
                     'status' => 500,
                     'message' => 'Prepare statement failed: ' . $mysqli->error
                 );
             } else { 
-                $stmt->bind_param("iisssss", $id_pasien, $id_dokter, $tanggal_pemeriksaan, $diagnosis, $tindakan, $obat, $catatan);
-
+                $stmt->bind_param("iisssss", $data['id_pasien'], $data['id_dokter'], $data['tanggal_pemeriksaan'], $data['diagnosis'], $data['tindakan'], $data['obat_yang_diresepkan'], $data['catatan']);
+    
                 if ($stmt->execute()) {
                     $response = array(
                         'status' => 201,
@@ -141,27 +143,29 @@
                         'message' => 'Insert riwayat gagal: ' . $stmt->error
                     );
                 }
-
+    
                 $stmt->close();
             }
         }
-
+    
         header('Content-Type: application/json');
         echo json_encode($response);
     }
-
+    
     function update_riwayat($id_riwayat) {
         global $mysqli;
     
-        $id_pasien = $_POST["id_pasien"];
-        $id_dokter = $_POST["id_dokter"];
-        $tanggal_pemeriksaan = $_POST["tanggal_pemeriksaan"];
-        $diagnosis = $_POST["diagnosis"];
-        $tindakan = $_POST["tindakan"];
-        $obat = $_POST["obat_yang_diresepkan"];
-        $catatan = $_POST["catatan"];
+        if (!empty($_POST)) {
+            $data = $_POST;
+        } else {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
     
-        if (empty($id_pasien) || empty($id_dokter) || empty($tanggal_pemeriksaan) || empty($diagnosis) || empty($tindakan) || empty($obat) || empty($catatan)) {
+        $required_fields = ['tanggal_pemeriksaan', 'diagnosis', 'tindakan', 'obat_yang_diresepkan', 'catatan'];
+    
+        $missing_fields = array_diff_key(array_flip($required_fields), $data);
+    
+        if (count($missing_fields) > 0) {
             $response = array(
                 'status' => 400,
                 'message' => 'Data tidak lengkap'
@@ -174,31 +178,37 @@
                     'message' => 'ID riwayat tidak ditemukan'
                 );
             } else {
-                $updateQuery = "UPDATE riwayat_pemeriksaan SET id_pasien=?, id_dokter=?, Tanggal_Pemeriksaan=?, Diagnosis=?, Tindakan=?, Obat_yang_Diresepkan=?, Catatan=? WHERE id_riwayat=?";
+                $updateQuery = "UPDATE riwayat_pemeriksaan SET Tanggal_Pemeriksaan=?, Diagnosis=?, Tindakan=?, Obat_yang_Diresepkan=?, Catatan=? WHERE id_riwayat=?";
                 $stmt = $mysqli->prepare($updateQuery);
     
-                $stmt->bind_param("iisssssi", $id_pasien, $id_dokter, $tanggal_pemeriksaan, $diagnosis, $tindakan, $obat, $catatan, $id_riwayat);
-                $result = $stmt->execute();
-    
-                if ($result) {
-                    $response = array(
-                        'status' => 200,
-                        'message' => 'Update riwayat berhasil'
-                    );
-                } else {
+                if ($stmt === false) {
                     $response = array(
                         'status' => 500,
-                        'message' => 'Update riwayat gagal'
+                        'message' => 'Prepare statement failed: ' . $mysqli->error
                     );
-                }
+                } else {
+                    $stmt->bind_param("sssssi", $data['tanggal_pemeriksaan'], $data['diagnosis'], $data['tindakan'], $data['obat_yang_diresepkan'], $data['catatan'], $id_riwayat);
     
-                $stmt->close();
+                    if ($stmt->execute()) {
+                        $response = array(
+                            'status' => 200,
+                            'message' => 'Update riwayat berhasil'
+                        );
+                    } else {
+                        $response = array(
+                            'status' => 500,
+                            'message' => 'Update riwayat gagal: ' . $stmt->error
+                        );
+                    }
+    
+                    $stmt->close();
+                }
             }
         }
     
         header('Content-Type: application/json');
         echo json_encode($response);
-    }
+    }    
 
     function delete_riwayat($id_riwayat) {
         global $mysqli;

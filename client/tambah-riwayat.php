@@ -29,9 +29,9 @@
             <div class="navigasi mt-4 d-inline-flex gap-3 p-0">
                 <a href="index.php">Dashboard</a>
                 <a href="#">/</a>
-                <a href="detail-pasien.php">Detail Pasien</a>
+                <a href="detail-pasien.php?id=<?php echo $_GET['id']; ?>">Detail Pasien</a>
                 <a href="#">/</a>
-                <a href="detail-riwayat.php">Tambah Riwayat</a>
+                <a href="#">Tambah Riwayat</a>
             </div>
             <div class="d-inline-flex gap-3 mt-2 mb-2 align-items-center p-0">
                 <img src="assets/ic_medical.svg" width="56px" alt="ic">
@@ -42,18 +42,20 @@
             </div>
 
             <!-- form -->
-            <form class="container-form d-flex row gap-3" action="post">
+            <form action="do/insert-riwayat-do.php" method="post" class="container-form d-flex row gap-3">
                 <div class="row">
+                    <input type="hidden" name="id_pasien" id="id_pasien" value="<?php echo $_GET['id']; ?>">
+                    <input type="hidden" name="id_dokter" id="id_dokter" value="2">
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">Tanggal Pemeriksaan*</span>
-                            <input type="date" class="data-input form-control" name="tanggal_pemeriksaan" id="tanggal_pemeriksaan">
+                            <input type="date" class="data-input form-control" name="tanggal_pemeriksaan" id="tanggal_pemeriksaan" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">Diagnosa*</span>
-                            <select class="custom-dropdown form-control">
+                            <select class="custom-dropdown form-control" name="diagnosis" id="diagnosis" required>
                                 <option value="" disabled selected></option>
                                 <option value="Anemia">Anemia</option>
                                 <option value="Hipertensi">Hipertensi</option>
@@ -79,13 +81,13 @@
                     <div class="col-lg-6">
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">Tindakan*</span>
-                            <input type="text" class="data-input form-control" name="tindakan" id="tindakan">
+                            <input type="text" class="data-input form-control" name="tindakan" id="tindakan" required>
                         </div>
                     </div>
                     <div class="col-lg-6 mt-3 mt-lg-0">
                         <div class="d-flex flex-column gap-3">
                             <span class="body-reguler">Obat Yang Diresepkan*</span>
-                            <input type="text" class="data-input form-control" name="obat" id="obat">
+                            <input type="text" class="data-input form-control" name="obat" id="obat" required>
                         </div>
                     </div>
                 </div>
@@ -96,8 +98,8 @@
                     </div>
                 </div>
                 <div class="d-inline-flex justify-content-end gap-3">
-                    <a href="detail-pasien.php" class="button-secondary w-auto">Batal</a>
-                    <input type="submit" class="button-primary w-auto" value="Tambah">
+                    <a href="detail-pasien.php?id=<?php echo $_GET['id']; ?>" class="button-secondary w-auto">Batal</a>
+                    <input type="submit" name="submit" class="button-primary w-auto" value="Tambah">
                 </div>
             </form>
         </div>

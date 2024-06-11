@@ -68,91 +68,102 @@
 
     function insert_pasien() {
         global $mysqli;
-
-        $nama = $_POST["nama"];
-        $tgl_lahir = $_POST["tgl_lahir"];
-        $jenis_kelamin = $_POST["jenis_kelamin"];
-        $kontak = $_POST["kontak"];
-        $alamat = $_POST["alamat"];
-
-        if (empty($nama) || empty($tgl_lahir) || empty($jenis_kelamin) || empty($kontak) || empty($alamat)) {
+        
+        if (!empty($_POST)) {
+            $data = $_POST;
+        } else {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
+    
+        $required_fields = ['nama', 'tgl_lahir', 'jenis_kelamin', 'kontak', 'alamat'];
+        if (count(array_intersect_key(array_flip($required_fields), $data)) !== count($required_fields)) {
             $response = array(
                 'status' => 400,
-                'message' => 'Data tidak lengkap'
+                'message' => 'Required parameters missing.'
+            );
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            return;
+        }
+    
+        $stmt = $mysqli->prepare("INSERT INTO pasien (nama, tgl_lahir, jenis_kelamin, kontak, alamat) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $data['nama'], $data['tgl_lahir'], $data['jenis_kelamin'], $data['kontak'], $data['alamat']);
+        
+        if ($stmt->execute()) {
+            $response = array(
+                'status' => 201,
+                'message' => 'Insert pasien berhasil'
             );
         } else {
-            $stmt = $mysqli->prepare("INSERT INTO pasien (nama, tgl_lahir, jenis_kelamin, kontak, alamat) VALUES (?, ?, ?, ?, ?)");
-
-            if ($stmt === false) {
-                $response = array(
-                    'status' => 500,
-                    'message' => 'Prepare statement failed: ' . $mysqli->error
-                );
-            } else {
-                $stmt->bind_param("sssss", $nama, $tgl_lahir, $jenis_kelamin, $kontak, $alamat);
-                
-                if ($stmt->execute()) {
-                    $response = array(
-                        'status' => 201,
-                        'message' => 'Insert pasien berhasil'
-                    );
-                } else {
-                    $response = array(
-                        'status' => 500,
-                        'message' => 'Insert pasien gagal: ' . $stmt->error
-                    );
-                }
-            }
-            $stmt->close();
+            $response = array(
+                'status' => 500,
+                'message' => 'Insert pasien gagal: ' . $stmt->error
+            );
         }
-
+        
+        $stmt->close();
+    
         header('Content-Type: application/json');
         echo json_encode($response);
     }
+    
 
     function update_pasien($id_pasien) {
         global $mysqli;
-
-        $nama = $_POST["nama"];
-        $tgl_lahir = $_POST["tgl_lahir"];
-        $jenis_kelamin = $_POST["jenis_kelamin"];
-        $kontak = $_POST["kontak"];
-        $alamat = $_POST["alamat"];
-        
+    
+        // Check if data is sent through POST or JSON
+        if (!empty($_POST)) {
+            $data = $_POST;
+        } else {
+            // Decode JSON data from request body
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
+    
+        // Check if the pasien exists
         $result = $mysqli->query("SELECT * FROM pasien WHERE id_pasien='$id_pasien'");
         if ($result->num_rows === 0) {
             $response = array(
                 'status' => 404,
                 'message' => 'ID pasien tidak ditemukan'
             );
-        } else {
-            if (empty($nama) || empty($tgl_lahir) || empty($jenis_kelamin) || empty($kontak) || empty($alamat)) {
-                $response = array(
-                    'status' => 400,
-                    'message' => 'Data tidak lengkap'
-                );
-            } else {
-                $stmt = $mysqli->prepare("UPDATE pasien SET nama = ?, tgl_lahir = ?, jenis_kelamin = ?, kontak = ?, alamat = ? WHERE id_pasien = ?");
-                $stmt->bind_param("sssssi", $nama, $tgl_lahir, $jenis_kelamin, $kontak, $alamat, $id_pasien);
-
-                if ($stmt->execute()) {
-                    $response = array(
-                        'status' => 200,
-                        'message' => 'Update pasien berhasil'
-                    );
-                } else {
-                    $response = array(
-                        'status' => 500,
-                        'message' => 'Update pasien gagal: ' . $stmt->error
-                    );
-                }
-                $stmt->close();
-            }
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            return;
         }
-
+    
+        // Check for required fields
+        $required_fields = ['nama', 'tgl_lahir', 'jenis_kelamin', 'kontak', 'alamat'];
+        if (count(array_intersect_key(array_flip($required_fields), $data)) !== count($required_fields)) {
+            $response = array(
+                'status' => 400,
+                'message' => 'Data tidak lengkap'
+            );
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            return;
+        }
+    
+        // Prepare and execute the query
+        $stmt = $mysqli->prepare("UPDATE pasien SET nama = ?, tgl_lahir = ?, jenis_kelamin = ?, kontak = ?, alamat = ? WHERE id_pasien = ?");
+        $stmt->bind_param("sssssi", $data['nama'], $data['tgl_lahir'], $data['jenis_kelamin'], $data['kontak'], $data['alamat'], $id_pasien);
+    
+        if ($stmt->execute()) {
+            $response = array(
+                'status' => 200,
+                'message' => 'Update pasien berhasil'
+            );
+        } else {
+            $response = array(
+                'status' => 500,
+                'message' => 'Update pasien gagal: ' . $stmt->error
+            );
+        }
+        $stmt->close();
+    
+        // Send response
         header('Content-Type: application/json');
         echo json_encode($response);
-    }
+    }           
 
     function delete_pasien($id_pasien) {
         global $mysqli;
